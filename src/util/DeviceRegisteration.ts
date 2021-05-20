@@ -2,6 +2,7 @@ import {AuthApiClient, KnownAuthStatusCode} from 'node-kakao';
 import * as readline from 'readline';
 import {Bot} from "../secret/Bot";
 
+// https://github.com/storycraft/node-kakao/blob/stable/examples/device-registration.ts
 const main = async () => {
     const form = {
         email: Bot.EMAIL,
