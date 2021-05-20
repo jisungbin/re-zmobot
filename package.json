@@ -1,0 +1,20 @@
+{
+  "name": "re-zmobot",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "node-kakao": "^4.2.2",
+    "readline": "^1.3.0"
+  },
+  "devDependencies": {
+    "@types/node": "^15.3.1",
+    "ts-node": "^9.1.1"
+  }
+}
