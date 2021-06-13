@@ -1,9 +1,9 @@
-# re-zmobot
+# Re: zmobot
 즈모봇이 부활해따
 
 -----
 
-# usage
+# Usage
 1. Clone this repo
 2. Create `src/secret/Bot.ts` and fill it like this format:
 ```ts
