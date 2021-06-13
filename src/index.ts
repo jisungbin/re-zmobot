@@ -80,10 +80,10 @@ client.on('chat', (data, channel) => {
 });
 
 const main = async () => {
-    const api = await AuthApiClient.create(Bot.NAME, Bot.UUID);
+    const api = await AuthApiClient.create(Bot.Name, Bot.Uuid);
     const loginRes = await api.login({
-        email: Bot.EMAIL,
-        password: Bot.PASSWORD,
+        email: Bot.Email,
+        password: Bot.Password,
         forced: true,
     });
     if (!loginRes.success) throw new Error(`Web login failed with status: ${loginRes.status}`);
