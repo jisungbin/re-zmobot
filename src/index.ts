@@ -12,7 +12,7 @@ import {
     MentionContent,
     ReplyAttachment,
     ReplyContent,
-    TalkClient
+    TalkClient, TalkOpenChannel
 } from 'node-kakao';
 import {Bot} from './secret/Bot';
 
@@ -29,6 +29,19 @@ CLIENT.on('chat', (data, channel) => {
     const sender = data.getSenderInfo(channel);
     if (!sender) return;
 
+    // (channel as TalkOpenChannel).session.request("WRITE", {
+    //         chatId: channel.channelId,
+    //         msgId: 1,
+    //         type: 1,
+    //         noSeen: true,
+    //         msg: '1234',
+    //         extra: JSON.stringify({
+    //             "shout": true,
+    //             "mentions": []
+    //         })
+    //     }
+    // )
+
     if (data.text === 'ㅎㅇ') {
         channel.sendChat(
             new ChatBuilder()
@@ -36,7 +49,8 @@ CLIENT.on('chat', (data, channel) => {
                 .append(new MentionContent(sender))
                 .text('님, 안녕하세요!')
                 .shout(true)
-                .build(KnownChatType.REPLY));
+                .build(KnownChatType.REPLY)
+        );
     }
 
     if (data.text === '@everyone') {
