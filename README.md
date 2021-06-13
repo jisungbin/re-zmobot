@@ -3,7 +3,7 @@
 
 -----
 
-# Usage
+# usage
 1. Clonse this repo
 2. Create `src/secret/Bot.ts` and fill it like this format:
 ```ts
