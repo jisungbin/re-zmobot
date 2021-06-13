@@ -14,4 +14,4 @@ export class Bot {
     static NAME = '';
 }
 ```
-3. run `src/index.ts`
+3. Run `src/index.ts`
