@@ -15,3 +15,6 @@ export class Bot {
 }
 ```
 3. Run `src/index.ts`
+
+# License
+`re: zmobot` license is under the `AGPL 3.0`.
