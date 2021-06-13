@@ -8,10 +8,10 @@
 2. Create `src/secret/Bot.ts` and fill it like this format:
 ```ts
 export class Bot {
-    static EMAIL = '';
-    static PASSWORD = '';
-    static UUID = '';
-    static NAME = '';
+    static Email = '';
+    static Password = '';
+    static Uuid = '';
+    static Name = '';
 }
 ```
 3. Run `src/index.ts`
