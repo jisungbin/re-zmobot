@@ -16,16 +16,16 @@ import {
 } from 'node-kakao';
 import {Bot} from './secret/Bot';
 
-const CLIENT = new TalkClient();
+const client = new TalkClient();
 
-// CLIENT.on('chat_deleted', (feedChatlog, channel, feed) => {
+// client.on('chat_deleted', (feedChatlog, channel, feed) => {
 //     const text = feedChatlog.text;
 //     if (text != undefined) {
 //         channel.sendChat(new ChatBuilder().text(feedChatlog.text!.toString()).build(KnownChatType.TEXT));
 //     }
 // });
 
-CLIENT.on('chat', (data, channel) => {
+client.on('chat', (data, channel) => {
     const sender = data.getSenderInfo(channel);
     if (!sender) return;
 
@@ -90,7 +90,7 @@ const main = async () => {
 
     console.log(`Received access token: ${loginRes.result.accessToken}`);
 
-    const res = await CLIENT.login(loginRes.result);
+    const res = await client.login(loginRes.result);
     if (!res.success) throw new Error(`Login failed with status: ${res.status}`);
 
     console.log('Login success');
