@@ -4,7 +4,7 @@
 -----
 
 # usage
-1. Clonse this repo
+1. Clone this repo
 2. Create `src/secret/Bot.ts` and fill it like this format:
 ```ts
 export class Bot {
