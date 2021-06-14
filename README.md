@@ -1,14 +1,11 @@
-# re-zmobot
-
-즈모봇이 부활해따
+# Re: Zmobot
+> 즈모봇이 부활해따
 
 -----
 
-# usage
-
+# Usage
 1. Clone this repo
 2. Create `src/secret/Bot.ts` and fill it like this format:
-
 ```ts
 export class Bot {
     static Email = '';
@@ -17,5 +14,7 @@ export class Bot {
     static Name = '';
 }
 ```
-
 3. Run `src/index.ts`
+
+# License
+`re: zmobot` license is under the `AGPL 3.0`.
