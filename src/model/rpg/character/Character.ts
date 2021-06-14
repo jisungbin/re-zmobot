@@ -6,7 +6,7 @@
  */
 
 import {CharacterType} from "./CharacterType";
-import '../../util/extensions/String';
+import {KString} from "../../../kclass/KString";
 
 export class Character {
   name: string;
@@ -26,9 +26,10 @@ export class Character {
     this.imageUrl = imageUrl
   }
 
-  toString = () => `
+  toString = () => KString.from(`
         이름: ${this.name}
         성별: ${this.gender}
         종류: ${this.kind}
-    `.trimAllLine();
+        이미지: ${this.imageUrl}
+    `).trimAllLine().get();
 }

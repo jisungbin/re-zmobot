@@ -7,11 +7,11 @@
 
 import '../../util/extensions/String';
 import '../../util/extensions/Array';
-import {Fish} from './Fish';
-import {MainViewModel} from "../../viewmodel/MainViewModel";
 
 export class FishData {
 
+  // todo class
+  /*
   private static HTML: string =
     `<tr>
         <td>
@@ -6122,4 +6122,5 @@ export class FishData {
     this.vm.fishs = fishs;
     return this.vm.fishs;
   }
+   */
 }

@@ -5,9 +5,9 @@
  * see full license: https://github.com/jisungbin/re-zmobot/blob/master/LICENSE
  */
 
-import './extensions/Array'
+import {List} from "../kclass/List";
 
 export class Random {
-  static nextBoolean = () => [true, false].random() as boolean;
+  static nextBoolean = () => List.from([true, false]).random() as boolean;
   static nextInt = (min: number, max: number) => Math.floor(Math.random() * (++max - min) + min);
 }

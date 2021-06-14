@@ -12,7 +12,7 @@ import {Character} from "../model/rpg/character/Character";
 export class MainViewModel {
   private static _instance = new MainViewModel();
 
-  userDb!: Nedb;
+  db!: Nedb;
   fishs: Fish[] = [];
   characters: Character[] = [];
   fishingUser = {};

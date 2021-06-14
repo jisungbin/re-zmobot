@@ -5,7 +5,6 @@
  * see full license: https://github.com/jisungbin/re-zmobot/blob/master/LICENSE
  */
 
-import '../../extensions/String'
 import {Character} from '../rpg/character/Character';
 import {Rpg} from '../rpg/Rpg';
 import {MainViewModel} from "../../viewmodel/MainViewModel";
@@ -37,13 +36,14 @@ export class User {
     this.character = character
   }
 
-  static createNew = (_id: string, nickname: string) => new User(_id, 0, nickname, 0, Rpg.createNew(), null);
+  // todo: change default money `10,000 -> 0`
+  static createNew = (_id: string, nickname: string) => new User(_id, 10000, nickname, 0, Rpg.createNew(), null);
 
   static fromId = async (id: string): Promise<any> => {
     const result = new Promise((resolve, reject) => {
-      User.vm.userDb.findOne({_id: id}, (error: Error | null, user: User) => {
+      User.vm.db.findOne({_id: id}, (error: Error | null, user: User) => {
         if (error) {
-          reject(error);
+          reject(null);
         } else {
           resolve(user);
         }

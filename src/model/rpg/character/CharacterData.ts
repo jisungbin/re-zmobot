@@ -5,17 +5,17 @@
  * see full license: https://github.com/jisungbin/re-zmobot/blob/master/LICENSE
  */
 
-import '../../util/extensions/String';
-import '../../util/extensions/Array';
 import {Character} from "./Character";
 import {CharacterType} from "./CharacterType";
 import {MainViewModel} from "../../../viewmodel/MainViewModel";
+import {KString} from "../../../kclass/KString";
+import {List} from "../../../kclass/List";
 
 export class CharacterData {
 
   private static vm = MainViewModel.instance()
 
-  private static HTML = `
+  private static HTML = KString.from(`
     <div class='wiki-paragraph'></div>
 </div>
 <div class='wiki-paragraph'>모동숲 기준으로 <strong>총 34마리</strong>가 있다.<a class='wiki-fn-content' title='삭제된 주민까지 포함하면 36마리.'
@@ -43505,16 +43505,17 @@ export class CharacterData {
         </table>
     </div>
     <div class='wiki-paragraph'><br></div>
-    `.trimAllLine()
+    `).trimAllLine().get();
 
   static parse = (): Character[] => {
-    if (CharacterData.vm.characters.isNotEmpty()) return CharacterData.vm.characters;
+    if (List.from(CharacterData.vm.characters).isNotEmpty()) return CharacterData.vm.characters;
     let index = 0;
     const characters: Character[] = [];
 
-    CharacterData.HTML.split(`<div class='wiki-paragraph'></div>`).forEach((element: string) => {
+    CharacterData.HTML.split(`<div class='wiki-paragraph'></div>`).forEach((_element: string) => {
+      const element = KString.from(_element);
       if (!element.contains('스프라이트')) return;
-      let value = element.split('스프라이트</span></strong>')[1];
+      let value = element.get().split('스프라이트</span></strong>')[1];
       let cutString = value.split('<tr>')[0];
       let substringLength = cutString.length;
       value = value.substring(substringLength);
@@ -43526,17 +43527,18 @@ export class CharacterData {
       const names: string[] = [];
       const imageUrls: string[] = [];
 
-      value.split('\n').forEach((line: string) => {
+      value.split('\n').forEach((_line: string) => {
+        let line = KString.from(_line);
         if (line.contains('여성')) {
           genders.push(CharacterType.WOMEN);
         } else {
           genders.push(CharacterType.MEN)
         }
 
-        if (line.startsWith(`src='//w`)) {
-          imageUrls.push(`https:${parseUrl(line)}`);
+        if (line.get().startsWith(`src='//w`)) {
+          imageUrls.push(`https:${parseUrl(line.get())}`);
         } else if (line.contains(`style='color:#fff'><strong>`)) {
-          names.push(parseName(line));
+          names.push(parseName(line.get()));
         }
       });
 

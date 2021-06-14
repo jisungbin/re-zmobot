@@ -14,33 +14,71 @@ import {
   ReplyContent,
   TalkClient
 } from 'node-kakao';
-import {Bot} from './secret/Bot';
+import NeDatabase from 'nedb';
+import {BotData} from './secret/BotData';
+import {User} from "./model/user/User";
+import {Database} from "./database/Database";
+import {RpgResponse} from "./response/game/RpgResponse";
+import {Bot} from "./util/Bot";
+import {MainViewModel} from "./viewmodel/MainViewModel";
+
+const vm = MainViewModel.instance()
+
+vm.db = new NeDatabase({filename: 'src/database/user.json', autoload: true});
+vm.db.persistence.setAutocompactionInterval(1000 * 60 * 10); // 10분마다 데이터베이스 정리
 
 const client = new TalkClient();
 
-// client.on('chat_deleted', (feedChatlog, channel, feed) => {
-//     const text = feedChatlog.text;
-//     if (text != undefined) {
-//         channel.sendChat(new ChatBuilder().text(feedChatlog.text!.toString()).build(KnownChatType.TEXT));
-//     }
+// client.on('chat_deleted', (feedChatlog, channel) => {
+//   const text = feedChatlog.text;
+//   if (text) {
+//     channel.sendChat(new ChatBuilder().text(text).build(KnownChatType.TEXT));
+//   }
 // });
 
-client.on('chat', (data, channel) => {
+client.on('chat', async (data, channel) => {
   const sender = data.getSenderInfo(channel);
   if (!sender) return;
 
   // (channel as TalkOpenChannel).session.request("WRITE", {
-  //         chatId: channel.channelId,
-  //         msgId: 1,
-  //         type: 1,
-  //         noSeen: true,
-  //         msg: '1234',
-  //         extra: JSON.stringify({
-  //             "shout": true,
-  //             "mentions": []
-  //         })
-  //     }
+  //     chatId: channel.channelId,
+  //     msgId: 1,
+  //     type: 1,
+  //     noSeen: true,
+  //     msg: '1234',
+  //     extra: JSON.stringify({
+  //       "shout": true,
+  //       "mentions": []
+  //     })
+  //   }
   // )
+
+  let user = await User.fromId(sender.userId.toString());
+  console.log(user)
+
+  if (!user) {
+    console.log('aa')
+    const newUser = User.createNew(sender.userId.toString(), sender.nickname);
+    Database.updateUser(newUser);
+    user = newUser;
+  }
+
+  if (data.text === '!캐릭터재설정') {
+    RpgResponse.resetCharacter(channel, user, sender);
+  }
+
+  if (data.text === '!캐릭터뽑기') {
+    RpgResponse.getCharacter(channel, user, sender);
+  }
+
+  if (data.text === '!내정보') {
+    RpgResponse.information(channel, user, sender)
+  }
+
+  if (data.text === '!db압축') {
+    vm.db.persistence.compactDatafile();
+    Bot.replyToChannel(channel, 'DB 압축 완료');
+  }
 
   if (data.text === 'ㅎㅇ') {
     channel.sendChat(
@@ -80,10 +118,10 @@ client.on('chat', (data, channel) => {
 });
 
 const main = async () => {
-  const api = await AuthApiClient.create(Bot.Name, Bot.Uuid);
+  const api = await AuthApiClient.create(BotData.Name, BotData.Uuid);
   const loginRes = await api.login({
-    email: Bot.Email,
-    password: Bot.Password,
+    email: BotData.Email,
+    password: BotData.Password,
     forced: true,
   });
   if (!loginRes.success) throw new Error(`Web login failed with status: ${loginRes.status}`);

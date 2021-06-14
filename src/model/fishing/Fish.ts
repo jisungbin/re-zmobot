@@ -5,7 +5,7 @@
  * see full license: https://github.com/jisungbin/re-zmobot/blob/master/LICENSE
  */
 
-import '../../util/extensions/String';
+import {KString} from "../../kclass/KString";
 
 export class Fish {
   name: string;
@@ -34,12 +34,12 @@ export class Fish {
     this.money = money;
   }
 
-  toString = () => `
+  toString = () => KString.from(`
         이름: ${this.name}
         출현기간: ${this.date}
         출현시간: ${this.time}
         출현위치: ${this.locate}
         크기: ${this.size}
         가격: ${this.money}벨
-    `.trimAllLine();
+    `).trimAllLine().get();
 }
