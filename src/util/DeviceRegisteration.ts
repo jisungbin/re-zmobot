@@ -5,12 +5,12 @@ import {BotData} from "../secret/BotData";
 // https://github.com/storycraft/node-kakao/blob/stable/examples/device-registration.ts
 const main = async () => {
   const form = {
-    email: BotData.Email,
-    password: BotData.Password,
+    email: BotData.EMAIL,
+    password: BotData.PASSWORD,
     forced: true,
   };
 
-  const api = await AuthApiClient.create(BotData.Name, BotData.Uuid);
+  const api = await AuthApiClient.create(BotData.Name, BotData.UUID);
   const loginRes = await api.login(form);
   if (loginRes.success) throw new Error('Device already registered!');
   if (loginRes.status !== KnownAuthStatusCode.DEVICE_NOT_REGISTERED) {
@@ -31,7 +31,7 @@ const main = async () => {
   const registerRes = await api.registerDevice(form, passcode, true);
   if (!registerRes.success) throw new Error(`Device registration failed with status: ${registerRes.status}`);
 
-  console.log(`Device ${BotData.Uuid} has been registered`);
+  console.log(`Device ${BotData.UUID} has been registered`);
 
   const loginAfterRes = await api.login(form);
   if (!loginAfterRes.success) throw new Error(`Web login failed with status: ${loginAfterRes.status}`);
