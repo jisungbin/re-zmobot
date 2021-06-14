@@ -5,9 +5,9 @@
 
 # Usage
 1. Clone this repo
-2. Create `src/secret/Bot.ts` and fill it like this format:
+2. Create `src/secret/BotData.ts` and fill it like this format:
 ```ts
-export class Bot {
+export class BotData {
     static Email = '';
     static Password = '';
     static Uuid = '';
