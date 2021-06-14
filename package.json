@@ -10,7 +10,11 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@types/nedb": "^1.8.11",
     "@types/node": "^15.12.2",
     "ts-node": "^9.1.1"
+  },
+  "dependencies": {
+    "nedb": "^1.8.0"
   }
 }
