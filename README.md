@@ -8,10 +8,10 @@
 2. Create `src/secret/BotData.ts` and fill it like this format:
 ```ts
 export class BotData {
-    static Email = '';
-    static Password = '';
-    static Uuid = '';
-    static Name = '';
+    static EMAIL = '';
+    static PASSWORD = '';
+    static UUID = '';
+    static NAME = '';
 }
 ```
 3. Run `src/index.ts`
