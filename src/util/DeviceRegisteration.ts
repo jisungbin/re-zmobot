@@ -10,7 +10,7 @@ const main = async () => {
     forced: true,
   };
 
-  const api = await AuthApiClient.create(BotData.Name, BotData.UUID);
+  const api = await AuthApiClient.create(BotData.NAME, BotData.UUID);
   const loginRes = await api.login(form);
   if (loginRes.success) throw new Error('Device already registered!');
   if (loginRes.status !== KnownAuthStatusCode.DEVICE_NOT_REGISTERED) {

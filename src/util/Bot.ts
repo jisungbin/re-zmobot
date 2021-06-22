@@ -14,6 +14,6 @@ export class Bot {
       new ChatBuilder()
         .text(KString.from(text).trimAllLine().get())
         .build(KnownChatType.TEXT)
-    );
+    ).then();
   }
 }

@@ -16,9 +16,6 @@ import {
 } from 'node-kakao';
 import NeDatabase from 'nedb';
 import {BotData} from './secret/BotData';
-import {User} from "./model/user/User";
-import {Database} from "./database/Database";
-import {RpgResponse} from "./response/game/RpgResponse";
 import {Bot} from "./util/Bot";
 import {MainViewModel} from "./viewmodel/MainViewModel";
 
@@ -29,51 +26,19 @@ vm.db.persistence.setAutocompactionInterval(1000 * 60 * 10); // 10분마다 데�
 
 const client = new TalkClient();
 
-// client.on('chat_deleted', (feedChatlog, channel) => {
-//   const text = feedChatlog.text;
-//   if (text) {
-//     channel.sendChat(new ChatBuilder().text(text).build(KnownChatType.TEXT));
-//   }
-// });
-
 client.on('chat', async (data, channel) => {
   const sender = data.getSenderInfo(channel);
   if (!sender) return;
 
-  // (channel as TalkOpenChannel).session.request("WRITE", {
-  //     chatId: channel.channelId,
-  //     msgId: 1,
-  //     type: 1,
-  //     noSeen: true,
-  //     msg: '1234',
-  //     extra: JSON.stringify({
-  //       "shout": true,
-  //       "mentions": []
-  //     })
-  //   }
-  // )
-
-  let user = await User.fromId(sender.userId.toString());
+  /*let user = await User.fromId(sender.userId.toString());
   console.log(user)
 
   if (!user) {
-    console.log('aa')
-    const newUser = User.createNew(sender.userId.toString(), sender.nickname);
-    Database.updateUser(newUser);
-    user = newUser;
-  }
-
-  if (data.text === '!캐릭터재설정') {
-    RpgResponse.resetCharacter(channel, user, sender);
-  }
-
-  if (data.text === '!캐릭터뽑기') {
-    RpgResponse.getCharacter(channel, user, sender);
-  }
-
-  if (data.text === '!내정보') {
-    RpgResponse.information(channel, user, sender)
-  }
+      console.log('aa')
+      const newUser = User.createNew(sender.userId.toString(), sender.nickname);
+      Database.updateUser(newUser);
+      user = newUser;
+  }*/
 
   if (data.text === '!db압축') {
     vm.db.persistence.compactDatafile();
@@ -88,7 +53,7 @@ client.on('chat', async (data, channel) => {
         .text('님, 안녕하세요!')
         .shout(true)
         .build(KnownChatType.REPLY)
-    );
+    ).then();
   }
 
   if (data.text === '@everyone') {
@@ -96,7 +61,7 @@ client.on('chat', async (data, channel) => {
     for (const user of channel.getAllUserInfo()) {
       builder.append(new MentionContent(user)).text(' ')
     }
-    channel.sendChat(builder.build(KnownChatType.TEXT));
+    channel.sendChat(builder.build(KnownChatType.TEXT)).then();
   }
 
   if (data.text === '!읽은사람') {
@@ -105,13 +70,17 @@ client.on('chat', async (data, channel) => {
       const logId = reply.src_logId;
       if (logId) {
         const readers = channel.getReaders({logId});
-        channel.sendChat(`${readers.length}명이 읽었어요!\n\n${readers.map(reader => reader.nickname).join(', ')}`);
+        channel.sendChat(
+          `${readers.length}명이 읽었어요!\n\n${readers.map(reader => reader.nickname).join(', ')}`
+        ).then();
       }
     } else {
       const logId = data.chat.prevLogId;
       if (logId) {
         const readers = channel.getReaders({logId});
-        channel.sendChat(`${readers.length}명이 읽었어요!\n\n${readers.map(reader => reader.nickname).join(', ')}`);
+        channel.sendChat(
+          `${readers.length}명이 읽었어요!\n\n${readers.map(reader => reader.nickname).join(', ')}`
+        ).then();
       }
     }
   }

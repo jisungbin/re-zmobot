@@ -6,25 +6,16 @@
  */
 
 import Nedb from "nedb";
-import {Fish} from "../model/fishing/Fish";
-import {Character} from "../model/rpg/character/Character";
 
 export class MainViewModel {
   private static _instance = new MainViewModel();
 
   db!: Nedb;
-  fishs: Fish[] = [];
-  characters: Character[] = [];
-  fishingUser = {};
 
   private constructor() {
   }
 
   static instance = (): MainViewModel => {
     return MainViewModel._instance;
-  }
-
-  clear = () => {
-    this.fishingUser = {};
   }
 }
