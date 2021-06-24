@@ -9,7 +9,7 @@
 1. Clone this repo
 2. Create `src/secret/BotData.ts` and fill it like this format:
 
-```ts
+```typescript
 export class BotData {
   static EMAIL = '';
   static PASSWORD = '';
