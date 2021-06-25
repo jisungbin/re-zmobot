@@ -18,6 +18,7 @@ import NeDatabase from 'nedb';
 import {BotData} from './secret/BotData';
 import {Bot} from "./util/Bot";
 import {MainViewModel} from "./viewmodel/MainViewModel";
+import {Message} from "./model/Message";
 
 const vm = MainViewModel.instance()
 
@@ -26,9 +27,35 @@ vm.db.persistence.setAutocompactionInterval(1000 * 60 * 10); // 10분마다 데�
 
 const client = new TalkClient();
 
+client.on('chat_deleted', (feedChatlog, channel) => {
+  if (!feedChatlog) return;
+  const chatDataJson = JSON.parse(feedChatlog.text!);
+  const logId = chatDataJson["logId"];
+
+  console.log("logId: " + logId);
+
+  vm.messages.forEach((value) => {
+      // console.log("logId: " + logId);
+      console.log("vm.messages: " + value.logId);
+      // console.log(value.logId.toString() == logId.toString());
+    }
+  );
+
+  // const message = Message.fromLogId(logId)!;
+  // Bot.replyToChannel(channel, `${message.sender}님이 방금 삭제하신 메시지에요!\n\n ${message.text}`)
+});
+
 client.on('chat', async (data, channel) => {
   const sender = data.getSenderInfo(channel);
   if (!sender) return;
+
+  if (channel.getDisplayName() != "성빈방") return;
+
+  console.log("data.chat: " + data.chat.prevLogId)
+  console.log("data.chat: " + data.chat.logId)
+  console.log("data.chat: " + data.chat.text)
+  console.log("data.chat: " + data.chat.messageId)
+  vm.messages.push(Message.fromChat(data, channel));
 
   if (data.text === '!db압축') {
     vm.db.persistence.compactDatafile();

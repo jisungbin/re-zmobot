@@ -6,11 +6,13 @@
  */
 
 import Nedb from "nedb";
+import {Message} from "../model/Message";
 
 export class MainViewModel {
   private static _instance = new MainViewModel();
 
   db!: Nedb;
+  messages: Message[] = []
 
   private constructor() {
   }
