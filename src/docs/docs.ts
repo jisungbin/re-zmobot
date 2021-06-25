@@ -28,3 +28,15 @@ client.on('chat_deleted', (feedChatlog, channel) => {
   }
 });
 */
+
+
+/* --- 유저 업데이트 ---
+let user = await User.fromId(sender.userId.toString());
+console.log(user)
+
+if (!user) {
+    console.log('aa')
+    const newUser = User.createNew(sender.userId.toString(), sender.nickname);
+    Database.updateUser(newUser);
+    user = newUser;
+}*/

@@ -30,16 +30,6 @@ client.on('chat', async (data, channel) => {
   const sender = data.getSenderInfo(channel);
   if (!sender) return;
 
-  /*let user = await User.fromId(sender.userId.toString());
-  console.log(user)
-
-  if (!user) {
-      console.log('aa')
-      const newUser = User.createNew(sender.userId.toString(), sender.nickname);
-      Database.updateUser(newUser);
-      user = newUser;
-  }*/
-
   if (data.text === '!db압축') {
     vm.db.persistence.compactDatafile();
     Bot.replyToChannel(channel, 'DB 압축 완료');
