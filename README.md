@@ -1,6 +1,7 @@
 # Re: Zmobot
 
-> 즈모봇이 부활해따
+> 즈모봇이 부활해따! <br/>
+> 타입스크립트 토이프로젝트
 
 -----
 
@@ -9,7 +10,7 @@
 1. Clone this repo
 2. Create `src/secret/BotData.ts` and fill it like this format:
 
-```ts
+```typescript
 export class BotData {
   static EMAIL = '';
   static PASSWORD = '';
