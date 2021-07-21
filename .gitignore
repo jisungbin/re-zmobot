@@ -1,4 +1,3 @@
-# Project exclude paths
 /node_modules/
 /src/secret/
 /dist/

@@ -20,13 +20,13 @@
 )
 */
 
-/* --- 삭제된 메시지 전송 ---
-client.on('chat_deleted', (feedChatlog, channel) => {
-  const text = feedChatlog.text;
-  if (text) {
-    channel.sendChat(new ChatBuilder().text(text).build(KnownChatType.TEXT));
-  }
+/* --- 삭제된 메시지 전송 --- (검증됨)
+client.on('chat_deleted', async (feedChatLog, channel) => {
+  if (!feedChatLog) return;
+  const chat = await channel.chatListStore.get(feedChatLog.logId)
+  Bot.replyToChannel(channel, chat?.text ?? "삭제된 메시지를 읽어올 수 없음")
 });
+
 */
 
 
